@@ -1,0 +1,49 @@
+object Form1: TForm1
+  Left = 235
+  Top = 200
+  BorderIcons = [biSystemMenu, biMinimize, biHelp]
+  BorderStyle = bsNone
+  Caption = 'Form1'
+  ClientHeight = 636
+  ClientWidth = 1289
+  Color = clMenuHighlight
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  WindowState = wsMaximized
+  PixelsPerInch = 96
+  TextHeight = 13
+  object BitBtn1: TBitBtn
+    Left = 1592
+    Top = 840
+    Width = 299
+    Height = 153
+    Caption = 'Close'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -35
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    OnClick = BitBtn1Click
+    Kind = bkAbort
+  end
+  object Button1: TButton
+    Left = 688
+    Top = 632
+    Width = 601
+    Height = 193
+    Caption = 'Play'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -53
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+  end
+end
