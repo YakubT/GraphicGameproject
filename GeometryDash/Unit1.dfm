@@ -1217,7 +1217,7 @@ object Form1: TForm1
   end
   object Button1: TButton
     Left = 680
-    Top = 632
+    Top = 664
     Width = 601
     Height = 193
     Caption = 'Play'

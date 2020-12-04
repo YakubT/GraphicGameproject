@@ -62,8 +62,43 @@ Form1.LevelImage.Picture.LoadFromFile(masimg[levelnum]);
 Form1.right_arrow.Show;
 Form1.options.Show;
 end;
+procedure set_properties();
+begin
+// set left arr
+Form1.left_ar.Left:=Trunc((248/1920)*Screen.Width);
+Form1.left_ar.Top:=Trunc((352/1080)*Screen.Height);
+Form1.left_ar.Height:=Trunc((161/1080)*Screen.Height);
+Form1.left_ar.Width:=Trunc((257/1920)*Screen.Width);
+// set right arr
+Form1.right_arrow.Left:=Trunc((1472/1920)*Screen.Width);
+Form1.right_arrow.Top:=Trunc((336/1080)*Screen.Height);
+Form1.right_arrow.Height:=Trunc((161/1080)*Screen.Height);
+Form1.right_arrow.Width:=Trunc((257/1920)*Screen.Width);
+// set Bitbtn1
+Form1.BitBtn1.Left:=Trunc((1592/1920)*Screen.Width);
+Form1.BitBtn1.Top:=Trunc((840/1080)*Screen.Height);
+Form1.BitBtn1.Height:=Trunc((153/1080)*Screen.Height);
+Form1.BitBtn1.Width:=Trunc((299/1920)*Screen.Width);
+// set Button1
+Form1.Button1.Left:=Trunc((680/1920)*Screen.Width);
+Form1.Button1.Top:=Trunc((664/1080)*Screen.Height);
+Form1.Button1.Height:=Trunc((193/1080)*Screen.Height);
+Form1.Button1.Width:=Trunc((601/1920)*Screen.Width);
+// set Level image
+Form1.LevelImage.Left:=Trunc((512/1920)*Screen.Width);
+Form1.LevelImage.Top:=Trunc((72/1080)*Screen.Height);
+Form1.LevelImage.Height:=Trunc((513/1080)*Screen.Height);
+Form1.LevelImage.Width:=Trunc((953/1920)*Screen.Width);
+// set options
+Form1.options.Left:=Trunc((1800/1920)*Screen.Width);
+Form1.options.Top:=Trunc((16/1080)*Screen.Height);
+Form1.options.Height:=Trunc((97/1080)*Screen.Height);
+Form1.options.Width:=Trunc((105/1920)*Screen.Width);
+
+end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+set_properties();
 playerid:=1;
 masimg[1]:='winter.jpg';
 masimg[2]:='spring.jpg';
