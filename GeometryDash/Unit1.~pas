@@ -224,7 +224,7 @@ begin
 playerid:=Form1.RadioGroup1.ItemIndex+1;
 with Application do
    begin
-      MessageBox('the choice is made','',MB_OK);
+      MessageBox('the choice is made,'',MB_OK);
    end;
 
 end;

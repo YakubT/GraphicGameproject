@@ -1,2 +1,4 @@
 Player1
 10 3 4 5
+Tolik
+0 0 0 0
