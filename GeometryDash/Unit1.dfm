@@ -1183,6 +1183,7 @@ object Form1: TForm1
       A28A0028A28A0028A28A0028A28A0028A28A0028A28A0028A28A0028A28A0028
       A28A0028A28A0028A28A00FFD9}
     Stretch = True
+    OnClick = optionsClick
   end
   object LblAc: TLabel
     Left = 32
@@ -1198,6 +1199,19 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
     WordWrap = True
+  end
+  object NameofLevels: TLabel
+    Left = 920
+    Top = 608
+    Width = 247
+    Height = 48
+    Caption = 'NameofLevels'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -40
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
   end
   object BitBtn1: TBitBtn
     Left = 1592
@@ -1228,5 +1242,25 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
     TabOrder = 1
+  end
+  object ScrollBox1: TScrollBox
+    Left = 512
+    Top = 48
+    Width = 969
+    Height = 665
+    TabOrder = 2
+    object RadioGroup1: TRadioGroup
+      Left = 8
+      Top = 8
+      Width = 953
+      Height = 649
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -40
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+    end
   end
 end

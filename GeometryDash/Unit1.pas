@@ -15,10 +15,14 @@ type
     left_ar: TImage;
     options: TImage;
     LblAc: TLabel;
+    NameofLevels: TLabel;
+    ScrollBox1: TScrollBox;
+    RadioGroup1: TRadioGroup;
     procedure BitBtn1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure right_arrowClick(Sender: TObject);
     procedure left_arClick(Sender: TObject);
+    procedure optionsClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,6 +32,7 @@ type
 var
   Form1: TForm1;
   masimg:array [1..5] of string;
+  maslvnm:array [1..5] of string;
   levelnum: Integer;
   playerid:Integer;
   playersname:  array [1..100] of string;
@@ -37,7 +42,22 @@ var
 implementation
 
 {$R *.dfm}
-
+procedure read_from_file ();
+var j:Integer;
+begin
+  AssignFile(f,'progress_of_players.txt');
+  Reset(f);
+  cntplayers:=0;
+  while not Eof(f) do
+  begin
+    cntplayers:=cntplayers+1;
+    Readln(f,playersname[cntplayers]);
+    for j:=1 to 3 do
+    read(f,playersprogr[cntplayers][j]);
+    readln(f,playersprogr[cntplayers][4]);
+  end;
+  CloseFile(f);
+end;
 procedure TForm1.BitBtn1Click(Sender: TObject);
 begin
 Form1.Close;
@@ -50,6 +70,9 @@ Form1.left_ar.Hide;
 Form1.LevelImage.Hide;
 Form1.right_arrow.Hide;
 Form1.options.Hide;
+Form1.LblAc.Hide;
+Form1.NameofLevels.Hide;
+Form1.ScrollBox1.Hide;
 end;
 procedure go_to_menu();
 begin
@@ -61,6 +84,10 @@ Form1.LevelImage.Show;
 Form1.LevelImage.Picture.LoadFromFile(masimg[levelnum]);
 Form1.right_arrow.Show;
 Form1.options.Show;
+Form1.LblAc.Show;
+Form1.LblAc.Caption:='Account:'+playersname[playerid];
+Form1.NameofLevels.Caption:=maslvnm[1];
+Form1.NameofLevels.Show;
 end;
 procedure set_properties();
 begin
@@ -94,7 +121,17 @@ Form1.options.Left:=Trunc((1800/1920)*Screen.Width);
 Form1.options.Top:=Trunc((16/1080)*Screen.Height);
 Form1.options.Height:=Trunc((97/1080)*Screen.Height);
 Form1.options.Width:=Trunc((105/1920)*Screen.Width);
-
+// set lblac
+Form1.LblAc.Left:=Trunc((32/1920)*Screen.Width);
+Form1.LblAc.Top:=Trunc((32/1080)*Screen.Height);
+Form1.LblAc.Height:=Trunc((33/1080)*Screen.Height);
+Form1.LblAc.Width:=Trunc((273/1920)*Screen.Width);
+// set Nameoflevels
+Form1.NameofLevels.Left:=Trunc((920/1920)*Screen.Width);
+Form1.NameofLevels.Top:=Trunc((608/1080)*Screen.Height);
+Form1.NameofLevels.Height:=Trunc((48/1080)*Screen.Height);
+Form1.NameofLevels.Width:=Trunc((247/1920)*Screen.Width);
+Form1.NameofLevels.Font.Size:=Trunc(30/1080*Screen.Height);
 end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -104,6 +141,11 @@ masimg[1]:='winter.jpg';
 masimg[2]:='spring.jpg';
 masimg[3]:='summer.jpg';
 masimg[4]:='autumn.jpg';
+maslvnm[1]:='Winter';
+maslvnm[2]:='Spring';
+maslvnm[3]:='Summer';
+maslvnm[4]:='Autumn';
+read_from_file();
 go_to_menu();
 end;
 
@@ -111,35 +153,32 @@ procedure TForm1.right_arrowClick(Sender: TObject);
 begin
 levelnum:=levelnum+1;
 Form1.LevelImage.Picture.LoadFromFile(masimg[levelnum]);
+Form1.NameofLevels.Caption:=maslvnm[levelnum];
 Form1.left_ar.Show;
 if (levelnum=4) then
    right_arrow.Hide;
 
 end;
-procedure read_from_file ();
-var j:Integer;
-begin
-  AssignFile(f,'progress_of_players.txt');
-  Reset(f);
-  cntplayers:=0;
-  while not Eof(f) do
-  begin
-    cntplayers:=cntplayers+1;
-    Readln(f,playersname[cntplayers]);
-    for j:=1 to 3 do
-    read(f,playersprogr[cntplayers][j]);
-    readln(f,playersprogr[cntplayers][4]);
-  end;
-  CloseFile(f);
-end;
+
 procedure TForm1.left_arClick(Sender: TObject);
 begin
 levelnum:=levelnum-1;
 Form1.LevelImage.Picture.LoadFromFile(masimg[levelnum]);
+Form1.NameofLevels.Caption:=maslvnm[levelnum];
 Form1.left_ar.Show;
 Form1.right_arrow.Show;
 if (levelnum=1) then
    left_ar.Hide;
+end;
+
+procedure TForm1.optionsClick(Sender: TObject);
+var i:integer;
+begin
+hide_all();
+Form1.ScrollBox1.Show;
+Form1.RadioGroup1.Items.Clear;
+for i:=1 to cntplayers do
+Form1.RadioGroup1.Items.Add(playersname[i]);
 end;
 
 end.
