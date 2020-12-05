@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 224
-  Top = 26
+  Left = 269
+  Top = 124
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsNone
   Caption = 'Form1'
@@ -1213,6 +1213,19 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
   end
+  object Label1: TLabel
+    Left = 144
+    Top = 248
+    Width = 868
+    Height = 48
+    Caption = 'Are you sure? Do you want to delete an account:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -40
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
   object BitBtn1: TBitBtn
     Left = 1592
     Top = 840
@@ -1244,14 +1257,15 @@ object Form1: TForm1
     TabOrder = 1
   end
   object ScrollBox1: TScrollBox
-    Left = 288
-    Top = 16
-    Width = 745
-    Height = 465
+    Left = 400
+    Top = 72
+    Width = 609
+    Height = 345
+    VertScrollBar.Position = 181
     TabOrder = 2
     object RadioGroup1: TRadioGroup
       Left = 8
-      Top = 0
+      Top = -21
       Width = 953
       Height = 633
       BiDiMode = bdLeftToRight
@@ -1270,7 +1284,7 @@ object Form1: TForm1
   end
   object Button2: TButton
     Left = 1128
-    Top = 32
+    Top = 24
     Width = 233
     Height = 113
     Caption = 'Go to menu'
@@ -1311,6 +1325,7 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
     TabOrder = 5
+    OnClick = Button4Click
   end
   object Button5: TButton
     Left = 848
@@ -1325,5 +1340,34 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
     TabOrder = 6
+  end
+  object ButtonYes: TButton
+    Left = 192
+    Top = 448
+    Width = 449
+    Height = 225
+    Caption = 'YES'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -80
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 7
+  end
+  object ButtonNO: TButton
+    Left = 728
+    Top = 448
+    Width = 449
+    Height = 225
+    Caption = 'CANCEL'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -80
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 8
+    OnClick = ButtonNOClick
   end
 end

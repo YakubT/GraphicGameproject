@@ -22,6 +22,9 @@ type
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
+    Label1: TLabel;
+    ButtonYes: TButton;
+    ButtonNO: TButton;
     procedure BitBtn1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure right_arrowClick(Sender: TObject);
@@ -29,6 +32,7 @@ type
     procedure optionsClick(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -83,6 +87,9 @@ Form1.Button2.Hide;
 Form1.Button3.Hide;
 Form1.Button4.Hide;
 Form1.Button5.Hide;
+Form1.Label1.Hide;
+Form1.ButtonYes.Hide;
+Form1.ButtonNO.Hide;
 end;
 procedure go_to_menu();
 begin
@@ -101,6 +108,7 @@ Form1.NameofLevels.Caption:=maslvnm[1];
 Form1.NameofLevels.Show;
 end;
 procedure set_properties();
+var i:integer;
 begin
 // set left arr
 Form1.left_ar.Left:=Trunc((248/1920)*Screen.Width);
@@ -149,18 +157,44 @@ Form1.ScrollBox1.Left:=Trunc((500/1920)*Screen.Width);
 Form1.ScrollBox1.Top:=Trunc((48/1080)*Screen.Height);
 Form1.ScrollBox1.Height:=Trunc((665/1080)*Screen.Height);
 Form1.ScrollBox1.Width:=Trunc((969/1920)*Screen.Width);
-// set RadioGroup1
-Form1.RadioGroup1.Left:=Trunc((10/1920)*Screen.Width);
-Form1.RadioGroup1.Top:=Trunc((10/1080)*Screen.Height);
-Form1.RadioGroup1.Width:=Trunc((900/1920)*Screen.Width);
 // set Button2
 Form1.Button2.Left:=Trunc((1128/1366)*Screen.Width);
 Form1.Button2.Top:=Trunc((32/768)*Screen.Height);
 Form1.Button2.Height:=Trunc((113/768)*Screen.Height);
 Form1.Button2.Width:=Trunc((233/1366)*Screen.Width);
+// set Button3
+Form1.Button3.Left:=Trunc((288/1366)*Screen.Width);
+Form1.Button3.Top:=Trunc((536/768)*Screen.Height);
+Form1.Button3.Height:=Trunc((105/768)*Screen.Height);
+Form1.Button3.Width:=Trunc((249/1366)*Screen.Width);
+//set button4
+Form1.Button4.Left:=Trunc((568/1366)*Screen.Width);
+Form1.Button4.Top:=Trunc((536/768)*Screen.Height);
+Form1.Button4.Height:=Trunc((105/768)*Screen.Height);
+Form1.Button4.Width:=Trunc((249/1366)*Screen.Width);
+// set button5
+Form1.Button5.Left:=Trunc((848/1366)*Screen.Width);
+Form1.Button5.Top:=Trunc((536/768)*Screen.Height);
+Form1.Button5.Height:=Trunc((105/768)*Screen.Height);
+Form1.Button5.Width:=Trunc((249/1366)*Screen.Width);
+// set RadiouGroup1
+Form1.RadioGroup1.Items.Clear;
+for i:=1 to cntplayers do
+Form1.RadioGroup1.Items.Add(playersname[i]);
+Form1.RadioGroup1.Height:=Trunc((100/768*Screen.Height)*cntplayers);
+Form1.RadioGroup1.Left:=Trunc((10/1920)*Screen.Width);
+Form1.RadioGroup1.Top:=0;
+Form1.RadioGroup1.Width:=Trunc((900/1920)*Screen.Width);
+// set Label1
+Form1.Label1.Left:=Trunc((144/1366)*Screen.Width);
+Form1.Label1.Top:=Trunc((248/768)*Screen.Height);
+Form1.Label1.Height:=Trunc((48/768)*Screen.Height);
+Form1.Label1.Width:=Trunc((868/1366)*Screen.Width);
+Form1.Label1.Font.Size:=Trunc((30/768)*Screen.Height);
 end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+read_from_file();
 set_properties();
 playerid:=1;
 masimg[1]:='winter.jpg';
@@ -171,7 +205,7 @@ maslvnm[1]:='Winter';
 maslvnm[2]:='Spring';
 maslvnm[3]:='Summer';
 maslvnm[4]:='Autumn';
-read_from_file();
+
 go_to_menu();
 end;
 
@@ -196,22 +230,21 @@ Form1.right_arrow.Show;
 if (levelnum=1) then
    left_ar.Hide;
 end;
-
-procedure TForm1.optionsClick(Sender: TObject);
-var i:integer;
+procedure go_to_options();
 begin
 Form1.Color:=clSkyBlue;
 hide_all();
-Form1.RadioGroup1.Items.Clear;
-for i:=1 to cntplayers do
-Form1.RadioGroup1.Items.Add(playersname[i]);
-Form1.RadioGroup1.Height:=Trunc((100/768*Screen.Height)*cntplayers);
 Form1.RadioGroup1.ItemIndex:=playerid-1;
 Form1.ScrollBox1.Show;
 Form1.Button2.Show;
 Form1.Button3.Show;
 Form1.Button4.show;
 Form1.Button5.Show;
+end;
+procedure TForm1.optionsClick(Sender: TObject);
+var i:integer;
+begin
+go_to_options;
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
@@ -224,9 +257,18 @@ begin
 playerid:=Form1.RadioGroup1.ItemIndex+1;
 with Application do
    begin
-      MessageBox('the choice is made,'',MB_OK);
+      MessageBox('the choice is made','',MB_OK);
    end;
 
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+begin
+hide_all();
+Form1.Label1.Show;
+Form1.Label1.Caption:='Are you sure? Do you want to delete the account '+playersname[Form1.RadioGroup1.ItemIndex+1]+'?';
+Form1.ButtonYes.Show;
+Form1.ButtonNO.Show;
 end;
 
 end.
