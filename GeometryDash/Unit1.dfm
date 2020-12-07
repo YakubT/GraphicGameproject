@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 269
-  Top = 124
+  Left = 285
+  Top = 88
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsNone
   Caption = 'Form1'
@@ -18,7 +18,7 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object LevelImage: TImage
-    Left = 512
+    Left = 520
     Top = 72
     Width = 953
     Height = 513
@@ -1214,8 +1214,8 @@ object Form1: TForm1
     ParentFont = False
   end
   object Label1: TLabel
-    Left = 144
-    Top = 248
+    Left = 312
+    Top = 224
     Width = 868
     Height = 48
     Caption = 'Are you sure? Do you want to delete an account:'
@@ -1340,10 +1340,11 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
     TabOrder = 6
+    OnClick = Button5Click
   end
   object ButtonYes: TButton
-    Left = 192
-    Top = 448
+    Left = 320
+    Top = 584
     Width = 449
     Height = 225
     Caption = 'YES'
@@ -1356,8 +1357,8 @@ object Form1: TForm1
     TabOrder = 7
   end
   object ButtonNO: TButton
-    Left = 728
-    Top = 448
+    Left = 1152
+    Top = 584
     Width = 449
     Height = 225
     Caption = 'CANCEL'
@@ -1369,5 +1370,33 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 8
     OnClick = ButtonNOClick
+  end
+  object Edit1: TEdit
+    Left = 312
+    Top = 352
+    Width = 1265
+    Height = 72
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -53
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 9
+  end
+  object BTNConfirm: TButton
+    Left = 320
+    Top = 592
+    Width = 449
+    Height = 217
+    Caption = 'Confirm'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -80
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 10
+    OnClick = BTNConfirmClick
   end
 end

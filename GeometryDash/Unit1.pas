@@ -25,6 +25,8 @@ type
     Label1: TLabel;
     ButtonYes: TButton;
     ButtonNO: TButton;
+    Edit1: TEdit;
+    BTNConfirm: TButton;
     procedure BitBtn1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure right_arrowClick(Sender: TObject);
@@ -34,6 +36,8 @@ type
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure ButtonNOClick(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure BTNConfirmClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -91,6 +95,8 @@ Form1.Button5.Hide;
 Form1.Label1.Hide;
 Form1.ButtonYes.Hide;
 Form1.ButtonNO.Hide;
+Form1.Edit1.Hide;
+Form1.BTNConfirm.Hide;
 end;
 procedure go_to_menu();
 begin
@@ -184,14 +190,34 @@ for i:=1 to cntplayers do
 Form1.RadioGroup1.Items.Add(playersname[i]);
 Form1.RadioGroup1.Height:=Trunc((100/768*Screen.Height)*cntplayers);
 Form1.RadioGroup1.Left:=Trunc((10/1920)*Screen.Width);
-Form1.RadioGroup1.Top:=0;
 Form1.RadioGroup1.Width:=Trunc((900/1920)*Screen.Width);
+Form1.RadioGroup1.Top:=-cntplayers;
 // set Label1
 Form1.Label1.Left:=Trunc((144/1366)*Screen.Width);
 Form1.Label1.Top:=Trunc((248/768)*Screen.Height);
 Form1.Label1.Height:=Trunc((48/768)*Screen.Height);
 Form1.Label1.Width:=Trunc((868/1366)*Screen.Width);
 Form1.Label1.Font.Size:=Trunc((30/768)*Screen.Height);
+// set ButtonYES
+Form1.ButtonYes.Left:=Trunc((320/1920)*Screen.Width);
+Form1.ButtonYes.Top:=Trunc((584/1080)*Screen.Height);
+Form1.ButtonYes.Height:=Trunc((225/768)*Screen.Height);
+Form1.ButtonYes.Width:=Trunc((449/1366)*Screen.Width);
+// set ButtonNO
+Form1.ButtonNO.Left:=Trunc((728/1366)*Screen.Width);
+Form1.ButtonNO.Top:=Trunc((584/1080)*Screen.Height);
+Form1.ButtonNO.Height:=Trunc((225/768)*Screen.Height);
+Form1.ButtonNO.Width:=Trunc((449/1366)*Screen.Width);
+// set Edit1
+Form1.Edit1.Left:=Trunc((312/1920)*Screen.Width);
+Form1.Edit1.Top:=Trunc((352/1080)*Screen.Height);
+Form1.Edit1.Height:=Trunc((137/1080)*Screen.Height);
+Form1.Edit1.Width:=Trunc((1265/1920)*Screen.Width);
+//set BtnConfirm
+Form1.BTNConfirm.Left:=Trunc((320/1920)*Screen.Width);
+Form1.BTNConfirm.Top:=Trunc((584/1080)*Screen.Height);
+Form1.BTNConfirm.Height:=Trunc((225/768)*Screen.Height);
+Form1.BTNConfirm.Width:=Trunc((449/1366)*Screen.Width);
 end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -241,6 +267,7 @@ Form1.Button2.Show;
 Form1.Button3.Show;
 Form1.Button4.show;
 Form1.Button5.Show;
+Form1.LblAc.Show;
 end;
 procedure TForm1.optionsClick(Sender: TObject);
 var i:integer;
@@ -256,17 +283,15 @@ end;
 procedure TForm1.Button3Click(Sender: TObject);
 begin
 playerid:=Form1.RadioGroup1.ItemIndex+1;
-with Application do
-   begin
-      MessageBox('the choice is made','',MB_OK);
-   end;
-
+Form1.LblAc.Caption:='Account:'+playersname[playerid];
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
 begin
 hide_all();
 Form1.Label1.Show;
+Form1.Label1.Height:=Trunc((48/768)*Screen.Height);
+Form1.Label1.Left:=Trunc((144/1366)*Screen.Width);
 Form1.Label1.Caption:='Are you sure? Do you want to delete the account '+playersname[Form1.RadioGroup1.ItemIndex+1]+'?';
 Form1.ButtonYes.Show;
 Form1.ButtonNO.Show;
@@ -277,4 +302,60 @@ begin
 go_to_options();
 end;
 
+procedure TForm1.Button5Click(Sender: TObject);
+begin
+hide_all();
+Form1.Edit1.Font.Size:=Trunc((40/1080)*Screen.Height);
+Form1.Edit1.Text:='';
+Form1.Edit1.Show;
+Form1.ButtonNO.Show;
+Form1.BTNConfirm.Show;
+Form1.Label1.Show;
+Form1.Label1.Top:=Trunc((216/1080)*Screen.Height);
+Form1.Label1.Left:=Trunc((312/1920)*Screen.Width);
+Form1.Label1.Caption:='Give the name of new account:';
+end;
+function checking (s:string):Boolean;
+var i:Integer;flag:Boolean;
+begin
+  flag:=False;
+for i:=1 to cntplayers do
+  begin
+  if (playersname[i]=s) then
+          flag:=True;
+  end;
+  checking:=flag;
+end;
+procedure TForm1.BTNConfirmClick(Sender: TObject);
+var s:string;
+begin
+s:=Form1.Edit1.Text;
+if (checking(s)=True) then
+  begin
+  with Application do
+      MessageBox('This name is already exists.Please give another name','Warning',MB_OK);
+  end
+else
+  begin
+    cntplayers:=cntplayers+1;
+    playersname[cntplayers]:=s;
+    playersprogr[cntplayers][1]:=0;
+    playersprogr[cntplayers][2]:=0;
+    playersprogr[cntplayers][3]:=0;
+    playersprogr[cntplayers][4]:=0;
+    AssignFile(f,'progress_of_players.txt');
+    Append(f);
+    Writeln(f,s);
+    Writeln(f,'0 0 0 0');
+    CloseFile(f);
+    Form1.RadioGroup1.Items.Add(s);;
+    Form1.RadioGroup1.Height:=Trunc((100/768*Screen.Height)*cntplayers);
+    Form1.RadioGroup1.Top:=-5;
+
+
+    with Application do
+      MessageBox('New account was created','',MB_OK);
+      go_to_options;
+  end;
+end;
 end.
