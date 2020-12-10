@@ -38,6 +38,7 @@ type
     procedure ButtonNOClick(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure BTNConfirmClick(Sender: TObject);
+    procedure ButtonYesClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -100,7 +101,7 @@ Form1.BTNConfirm.Hide;
 end;
 procedure go_to_menu();
 begin
-Form1.Color:=clMenuHighlight;
+Form1.Color:=clHighlight;
 levelnum:=1;
 hide_all();
 Form1.BitBtn1.Show;
@@ -262,12 +263,15 @@ begin
 Form1.Color:=clSkyBlue;
 hide_all();
 Form1.RadioGroup1.ItemIndex:=playerid-1;
+Form1.ScrollBox1.VertScrollBar.Position:=0;
 Form1.ScrollBox1.Show;
+Form1.RadioGroup1.Top:=0;
 Form1.Button2.Show;
 Form1.Button3.Show;
 Form1.Button4.show;
 Form1.Button5.Show;
 Form1.LblAc.Show;
+Form1.LblAc.Caption:='Accaunt:'+playersname[playerid];
 end;
 procedure TForm1.optionsClick(Sender: TObject);
 var i:integer;
@@ -350,12 +354,55 @@ else
     CloseFile(f);
     Form1.RadioGroup1.Items.Add(s);;
     Form1.RadioGroup1.Height:=Trunc((100/768*Screen.Height)*cntplayers);
-    Form1.RadioGroup1.Top:=-5;
-
 
     with Application do
       MessageBox('New account was created','',MB_OK);
       go_to_options;
   end;
 end;
+procedure overwrite();
+var i,j:integer;
+begin
+Assignfile(f,'progress_of_players.txt');
+Rewrite(f);
+for i:=1 to cntplayers do
+  begin
+  Writeln(f,playersname[i]);
+  for j:=1 to 3 do
+  Write(f,playersprogr[i][j],' ');
+  writeln(f,playersprogr[i][4]);
+  end;
+CloseFile(f);
+end;
+procedure TForm1.ButtonYesClick(Sender: TObject);
+var i,j:integer;
+begin
+  if (cntplayers=1) then
+    with Application do
+      MessageBox('You can''t delete the last account','',MB_OK)
+  else
+  begin
+  for i:=(Form1.RadioGroup1.ItemIndex+2) to cntplayers do
+    begin
+      playersname[i-1]:=playersname[i];
+      for j:= 1 to 4 do
+      playersprogr[i-1][j]:=playersprogr[i][j];
+    end;
+  cntplayers:=cntplayers-1;
+  //
+  Form1.RadioGroup1.Items.Clear;
+  for i:=1 to cntplayers do
+  Form1.RadioGroup1.Items.Add(playersname[i]);
+  Form1.RadioGroup1.Height:=Trunc((100/768*Screen.Height)*cntplayers);
+  Form1.RadioGroup1.Left:=Trunc((10/1920)*Screen.Width);
+  Form1.RadioGroup1.Width:=Trunc((900/1920)*Screen.Width);
+  //
+  overwrite();
+  if (playerid>cntplayers) then
+    playerid:=cntplayers;
+  go_to_options;
+  end;
+
+end;
+
 end.

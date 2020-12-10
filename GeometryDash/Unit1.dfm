@@ -6,7 +6,7 @@ object Form1: TForm1
   Caption = 'Form1'
   ClientHeight = 640
   ClientWidth = 1044
-  Color = clMenuHighlight
+  Color = clHighlight
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -1257,15 +1257,14 @@ object Form1: TForm1
     TabOrder = 1
   end
   object ScrollBox1: TScrollBox
-    Left = 400
-    Top = 72
-    Width = 609
-    Height = 345
-    VertScrollBar.Position = 181
+    Left = 120
+    Top = 24
+    Width = 1044
+    Height = 640
     TabOrder = 2
     object RadioGroup1: TRadioGroup
-      Left = 8
-      Top = -21
+      Left = 16
+      Top = -64
       Width = 953
       Height = 633
       BiDiMode = bdLeftToRight
@@ -1283,8 +1282,8 @@ object Form1: TForm1
     end
   end
   object Button2: TButton
-    Left = 1128
-    Top = 24
+    Left = 1136
+    Top = 40
     Width = 233
     Height = 113
     Caption = 'Go to menu'
@@ -1355,6 +1354,7 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
     TabOrder = 7
+    OnClick = ButtonYesClick
   end
   object ButtonNO: TButton
     Left = 1152

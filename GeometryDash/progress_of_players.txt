@@ -2,25 +2,11 @@ Player1
 10 3 4 5
 Tolik
 0 0 0 0
-TOLIK2
+Tolik2
 0 0 0 0
-Леха
+Lena
 0 0 0 0
-Ф
+Serg
 0 0 0 0
-Рома
-0 0 0 0
-ТОля
-0 0 0 0
-Никита
-0 0 0 0
-Ya
-0 0 0 0
-T
-0 0 0 0
-Durachok
-0 0 0 0
-Buka
-0 0 0 0
-R
+Test Acc
 0 0 0 0
