@@ -8,5 +8,5 @@ Player1
 0 0 0 0
 Панас
 0 0 0 0
-Lena
+Player2
 0 0 0 0
