@@ -1,12 +1,12 @@
 Player1
 10 3 4 5
-Tolik
+Леха
 0 0 0 0
-Tolik2
+Ялот
 0 0 0 0
-Lena
+Яна
 0 0 0 0
-Serg
+Панас
 0 0 0 0
-Test Acc
+Мотя
 0 0 0 0

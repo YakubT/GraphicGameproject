@@ -263,7 +263,7 @@ begin
 Form1.Color:=clSkyBlue;
 hide_all();
 Form1.RadioGroup1.ItemIndex:=playerid-1;
-Form1.ScrollBox1.VertScrollBar.Position =0;
+Form1.ScrollBox1.VertScrollBar.Position:=0;
 Form1.ScrollBox1.Show;
 Form1.RadioGroup1.Top:=0;
 Form1.Button2.Show;

@@ -292,6 +292,11 @@ end;
 
 procedure TForm1.Button4Click(Sender: TObject);
 begin
+if (cntplayers=1) then
+    with Application do
+      MessageBox('You can''t delete the last account','',MB_OK)
+else
+begin
 hide_all();
 Form1.Label1.Show;
 Form1.Label1.Height:=Trunc((48/768)*Screen.Height);
@@ -299,6 +304,7 @@ Form1.Label1.Left:=Trunc((144/1366)*Screen.Width);
 Form1.Label1.Caption:='Are you sure? Do you want to delete the account '+playersname[Form1.RadioGroup1.ItemIndex+1]+'?';
 Form1.ButtonYes.Show;
 Form1.ButtonNO.Show;
+end;
 end;
 
 procedure TForm1.ButtonNOClick(Sender: TObject);
