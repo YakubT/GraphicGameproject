@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 285
-  Top = 88
+  Left = 276
+  Top = 123
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsNone
   Caption = 'Form1'
@@ -1226,6 +1226,36 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
   end
+  object Shape1: TShape
+    Left = 408
+    Top = 480
+    Width = 585
+    Height = 57
+    Brush.Color = clDefault
+  end
+  object Shape2: TShape
+    Left = 408
+    Top = 480
+    Width = 409
+    Height = 57
+    Brush.Color = clLime
+  end
+  object Label2: TLabel
+    Left = 672
+    Top = 490
+    Width = 77
+    Height = 33
+    Caption = 'Label2'
+    Color = clWindow
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindow
+    Font.Height = -27
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentColor = False
+    ParentFont = False
+    Transparent = True
+  end
   object BitBtn1: TBitBtn
     Left = 1592
     Top = 840
@@ -1243,10 +1273,10 @@ object Form1: TForm1
     Kind = bkAbort
   end
   object Button1: TButton
-    Left = 680
-    Top = 664
-    Width = 601
-    Height = 193
+    Left = 483
+    Top = 552
+    Width = 427
+    Height = 137
     Caption = 'Play'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -1259,8 +1289,8 @@ object Form1: TForm1
   object ScrollBox1: TScrollBox
     Left = 120
     Top = 24
-    Width = 1044
-    Height = 640
+    Width = 713
+    Height = 265
     TabOrder = 2
     object RadioGroup1: TRadioGroup
       Left = 16
@@ -1297,8 +1327,8 @@ object Form1: TForm1
     OnClick = Button2Click
   end
   object Button3: TButton
-    Left = 288
-    Top = 536
+    Left = 88
+    Top = 520
     Width = 249
     Height = 105
     Caption = 'Choose an account'
@@ -1312,8 +1342,8 @@ object Form1: TForm1
     OnClick = Button3Click
   end
   object Button4: TButton
-    Left = 568
-    Top = 536
+    Left = 88
+    Top = 472
     Width = 249
     Height = 105
     Caption = 'Delete the account'
@@ -1327,8 +1357,8 @@ object Form1: TForm1
     OnClick = Button4Click
   end
   object Button5: TButton
-    Left = 848
-    Top = 536
+    Left = 1160
+    Top = 464
     Width = 249
     Height = 105
     Caption = 'Create new account'
@@ -1342,8 +1372,8 @@ object Form1: TForm1
     OnClick = Button5Click
   end
   object ButtonYes: TButton
-    Left = 320
-    Top = 584
+    Left = -136
+    Top = 352
     Width = 449
     Height = 225
     Caption = 'YES'
@@ -1385,8 +1415,8 @@ object Form1: TForm1
     TabOrder = 9
   end
   object BTNConfirm: TButton
-    Left = 320
-    Top = 592
+    Left = -144
+    Top = 488
     Width = 449
     Height = 217
     Caption = 'Confirm'
