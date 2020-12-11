@@ -30,6 +30,17 @@ type
     Shape1: TShape;
     Shape2: TShape;
     Label2: TLabel;
+    Sprite1: TImage;
+    Sprite2: TImage;
+    Sprite3: TImage;
+    Timer1: TTimer;
+    fon: TImage;
+    pause: TImage;
+    Continue: TImage;
+    Tomenu: TImage;
+    LInstr: TLabel;
+    Start: TButton;
+    Timer2: TTimer;
     procedure BitBtn1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure right_arrowClick(Sender: TObject);
@@ -42,6 +53,14 @@ type
     procedure Button5Click(Sender: TObject);
     procedure BTNConfirmClick(Sender: TObject);
     procedure ButtonYesClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure pauseClick(Sender: TObject);
+    procedure TomenuClick(Sender: TObject);
+    procedure ContinueClick(Sender: TObject);
+    procedure StartClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure Timer2Timer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -54,10 +73,14 @@ var
   maslvnm:array [1..5] of string;
   levelnum: Integer;
   playerid:Integer;
+  posofspr:Integer;
   playersname:  array [1..100] of string;
   playersprogr: array [1..100,1..10] of Integer;
   f:Text;
   cntplayers:Integer;
+  pausestan:integer;
+  low,high:integer;
+  flag:boolean;
 implementation
 
 {$R *.dfm}
@@ -104,9 +127,19 @@ Form1.BTNConfirm.Hide;
 Form1.Label2.Hide;
 Form1.Shape1.Hide;
 Form1.Shape2.Hide;
+Form1.Sprite1.Hide;
+Form1.Sprite2.Hide;
+Form1.Sprite3.Hide;
+Form1.fon.Hide;
+Form1.pause.Hide;
+Form1.Continue.Hide;
+Form1.Tomenu.Hide;
+Form1.LInstr.Hide;
+Form1.Start.Hide;
 end;
 procedure go_to_menu();
 begin
+pausestan:=-1;
 Form1.Color:=clHighlight;
 levelnum:=1;
 hide_all();
@@ -246,6 +279,54 @@ Form1.Label2.Top:=Trunc((490/768)*Screen.Height);
 Form1.Label2.Height:=Trunc((33/768)*Screen.Height);
 Form1.Label2.Width:=Trunc((77/1366)*Screen.Width);
 Form1.Label2.Font.Size:=Trunc((20/768)*Screen.Height);
+//set sprites
+Form1.Sprite1.Left:=Trunc((96/1366)*Screen.Width);
+Form1.Sprite1.Top:=Trunc((440/768)*Screen.Height);
+Form1.Sprite1.Height:=Trunc((193/768)*Screen.Height);
+Form1.Sprite1.Width:=Trunc((137/1366)*Screen.Width);
+
+Form1.Sprite2.Left:=Trunc((96/1366)*Screen.Width);
+Form1.Sprite2.Top:=Trunc((440/768)*Screen.Height);
+Form1.Sprite2.Height:=Trunc((193/768)*Screen.Height);
+Form1.Sprite2.Width:=Trunc((137/1366)*Screen.Width);
+
+Form1.Sprite3.Left:=Trunc((96/1366)*Screen.Width);
+Form1.Sprite3.Top:=Trunc((440/768)*Screen.Height);
+Form1.Sprite3.Height:=Trunc((193/768)*Screen.Height);
+Form1.Sprite3.Width:=Trunc((137/1366)*Screen.Width);
+low:=Trunc((440/768)*Screen.Height);
+high:=Trunc((327/768)*Screen.Height);
+// set fon
+Form1.fon.Left:=0;
+Form1.fon.Top:=0;
+Form1.fon.Height:=Trunc((250/768)*Screen.Height);
+Form1.fon.Width:=Screen.Width;
+// set pause
+Form1.pause.Left:=Trunc((1256/1366)*Screen.Width);
+Form1.pause.Top:=Trunc((8/768)*Screen.Height);
+Form1.pause.Height:=Trunc((89/768)*Screen.Height);
+Form1.pause.Width:=Trunc((89/1366)*Screen.Width);
+// set continue
+Form1.Continue.Left:=Trunc((296/1366)*Screen.Width);
+Form1.Continue.Top:=Trunc((240/768)*Screen.Height);
+Form1.Continue.Height:=Trunc((297/768)*Screen.Height);
+Form1.Continue.Width:=Trunc((297/1366)*Screen.Width);
+//set tomenu
+Form1.Tomenu.Left:=Trunc((824/1366)*Screen.Width);
+Form1.Tomenu.Top:=Trunc((240/768)*Screen.Height);
+Form1.Tomenu.Height:=Trunc((297/768)*Screen.Height);
+Form1.Tomenu.Width:=Trunc((297/1366)*Screen.Width);
+//set Linstr
+Form1.LInstr.Left:=Trunc((408/1366)*Screen.Width);
+Form1.LInstr.Top:=Trunc((296/768)*Screen.Height);
+Form1.LInstr.Height:=Trunc((81/768)*Screen.Height);
+Form1.LInstr.Width:=Trunc((641/1366)*Screen.Width);
+Form1.LInstr.Font.Size:=Trunc((50/768)*Screen.Height);
+//set start
+Form1.Start.Left:=Trunc((552/1366)*Screen.Width);
+Form1.Start.Top:=Trunc((464/768)*Screen.Height);
+Form1.Start.Height:=Trunc((161/768)*Screen.Height);
+Form1.Start.Width:=Trunc((337/1366)*Screen.Width);
 end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -284,6 +365,8 @@ Form1.LevelImage.Picture.LoadFromFile(masimg[levelnum]);
 Form1.NameofLevels.Caption:=maslvnm[levelnum];
 Form1.left_ar.Show;
 Form1.right_arrow.Show;
+Form1.Shape2.Width:=Trunc((playersprogr[playerid][levelnum]/100)*Form1.Shape1.Width);
+Form1.Label2.Caption:=InttoStr(playersprogr[playerid][levelnum])+'%';
 if (levelnum=1) then
    left_ar.Hide;
 end;
@@ -438,6 +521,116 @@ begin
   go_to_options;
   end;
 
+end;
+procedure set_level1();
+begin
+pausestan:=0;
+hide_all();
+Form1.Color:=clWhite;
+Form1.Timer1.Enabled:=true;
+Form1.Sprite1.Show;
+Form1.Sprite2.Show;
+Form1.Sprite3.Show;
+Form1.fon.Show;
+Form1.pause.Show;
+end;
+procedure instruction();
+begin
+hide_all();
+Form1.LInstr.Show;
+Form1.Start.Show;
+
+end;
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+posofspr:=1;
+instruction();
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+Form1.Sprite1.Hide;
+Form1.Sprite2.Hide;
+Form1.Sprite3.Hide;
+if (posofspr=1) then
+Form1.Sprite1.Show;
+if (posofspr=2) then
+Form1.Sprite2.Show;
+if (posofspr=3) then
+Form1.Sprite3.Show;
+
+posofspr:=posofspr+1;
+if (posofspr=4) then
+posofspr:=1;
+end;
+
+procedure TForm1.pauseClick(Sender: TObject);
+begin
+Timer1.Enabled:=False;
+Timer2.Enabled:=False;
+hide_all();
+Form1.Continue.Show;
+Form1.Tomenu.Show;
+end;
+
+procedure TForm1.TomenuClick(Sender: TObject);
+begin
+go_to_menu();
+end;
+
+procedure TForm1.ContinueClick(Sender: TObject);
+begin
+hide_all();
+Form1.Color:=clWhite;
+if (Form1.Sprite1.Top>low) then
+Form1.Timer2.Enabled:=True
+else
+Form1.Timer1.Enabled:=true;
+
+Form1.Sprite1.Show;
+Form1.Sprite2.Show;
+Form1.Sprite3.Show;
+Form1.fon.Show;
+Form1.pause.Show;
+end;
+
+procedure TForm1.StartClick(Sender: TObject);
+begin
+if (levelnum=1) then
+set_level1();
+end;
+
+procedure TForm1.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+if ((key=' ') and (pausestan=0) and (Form1.Sprite1.Top>=low)) then
+  begin
+  flag:=false;
+  Timer1.Enabled:=false;
+  Timer2.Enabled:=true;
+  end;
+end;
+
+procedure TForm1.Timer2Timer(Sender: TObject);
+begin
+If ((form1.Sprite1.Top>high) and (flag=false)) then
+begin
+Form1.Sprite1.Top:=Form1.Sprite1.Top-Trunc((5/768)*Screen.Height);
+Form1.Sprite2.Top:=Form1.Sprite2.Top-Trunc((5/768)*Screen.Height);
+Form1.Sprite3.Top:=Form1.Sprite3.Top-Trunc((5/768)*Screen.Height);
+if (form1.Sprite1.Top<=high) then
+flag:=true;
+end;
+If ((flag=true) and not (form1.Sprite1.Top>low))  then
+begin
+Form1.Sprite1.Top:=Form1.Sprite1.Top+Trunc((5/768)*Screen.Height);
+Form1.Sprite2.Top:=Form1.Sprite2.Top+Trunc((5/768)*Screen.Height);
+Form1.Sprite3.Top:=Form1.Sprite3.Top+Trunc((5/768)*Screen.Height);
+end;
+If (form1.Sprite1.Top>=low) then
+begin
+Timer2.Enabled:=False;
+Timer1.Enabled:=true;
+end;
 end;
 
 end.
