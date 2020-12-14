@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 302
-  Top = 173
+  Left = 288
+  Top = 138
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsNone
   Caption = 'Form1'
@@ -5819,6 +5819,12 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
   end
+  object shyp1: TImage
+    Left = 288
+    Top = 728
+    Width = 81
+    Height = 113
+  end
   object BitBtn1: TBitBtn
     Left = 1592
     Top = 840
@@ -6018,9 +6024,23 @@ object Form1: TForm1
   end
   object Timer2: TTimer
     Enabled = False
-    Interval = 50
+    Interval = 38
     OnTimer = Timer2Timer
     Left = 1296
     Top = 360
+  end
+  object Timer3: TTimer
+    Enabled = False
+    Interval = 250
+    OnTimer = Timer3Timer
+    Left = 1560
+    Top = 240
+  end
+  object Ruxshiptime: TTimer
+    Enabled = False
+    Interval = 25
+    OnTimer = RuxshiptimeTimer
+    Left = 1712
+    Top = 272
   end
 end

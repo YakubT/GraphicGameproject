@@ -10,3 +10,5 @@ Player1
 0 0 0 0
 Player2
 0 0 0 0
+Ya
+0 0 0 0
