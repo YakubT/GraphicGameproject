@@ -44,6 +44,13 @@ type
     shyp1: TImage;
     Timer3: TTimer;
     Ruxshiptime: TTimer;
+    attempt: TLabel;
+    shyp2: TImage;
+    Ruxshyp2: TTimer;
+    shyp3: TImage;
+    Ruxshyp3: TTimer;
+    Hsc: TLabel;
+    sc: TLabel;
     procedure BitBtn1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure right_arrowClick(Sender: TObject);
@@ -66,6 +73,8 @@ type
     procedure Timer2Timer(Sender: TObject);
     procedure Timer3Timer(Sender: TObject);
     procedure RuxshiptimeTimer(Sender: TObject);
+    procedure Ruxshyp2Timer(Sender: TObject);
+    procedure Ruxshyp3Timer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -85,8 +94,9 @@ var
   cntplayers:Integer;
   pausestan:integer;
   low,high:integer;
-  flag:boolean;
+  flag,flagruh1,flagruh2,flagruh3:boolean;
   leveltime:Int64;
+  sproba:Integer;
 implementation
 
 {$R *.dfm}
@@ -143,6 +153,11 @@ Form1.Tomenu.Hide;
 Form1.LInstr.Hide;
 Form1.Start.Hide;
 Form1.shyp1.Hide;
+Form1.attempt.Hide;
+Form1.shyp2.Hide;
+Form1.shyp3.Hide;
+Form1.Hsc.Hide;
+Form1.sc.Hide;
 end;
 procedure go_to_menu();
 begin
@@ -320,9 +335,38 @@ Form1.Start.Height:=Trunc((161/768)*Screen.Height);
 Form1.Start.Width:=Trunc((337/1366)*Screen.Width);
 //set shyp1
 Form1.shyp1.Left:=Trunc((272/1920)*Screen.Width);
-Form1.shyp1.Top:=Trunc((520/1080)*Screen.Height);
-Form1.shyp1.Height:=Trunc((80/1080)*Screen.Height);
-Form1.shyp1.Width:=Trunc((75/1920)*Screen.Width);
+Form1.shyp1.Top:=Trunc((525/1080)*Screen.Height);
+Form1.shyp1.Height:=Trunc((60/1080)*Screen.Height);
+Form1.shyp1.Width:=Trunc((60/1920)*Screen.Width);
+//set shyp2
+Form1.shyp2.Left:=Trunc(248/1366*Screen.Width);
+Form1.shyp2.Top:=Trunc(592/768*Screen.Height);
+Form1.shyp2.Height:=Trunc(55/768*Screen.Height);
+Form1.shyp2.Width:=Trunc(41/1366*Screen.Width);
+//set attempt
+Form1.attempt.Left:=Trunc((8/1366)*Screen.Width);
+Form1.attempt.Top:=Trunc((16/768)*Screen.Height);
+Form1.attempt.Width:=Trunc((101/1366)*Screen.Width);
+Form1.attempt.Height:=Trunc((24/768)*Screen.Height);
+Form1.attempt.Font.Size:=trunc(15/768*Screen.Height);
+// set Hsc
+Form1.Hsc.Left:=Trunc((8/1366)*Screen.Width);
+Form1.Hsc.Top:=Trunc((40/768)*Screen.Height);
+Form1.Hsc.Width:=Trunc((101/1366)*Screen.Width);
+Form1.Hsc.Height:=Trunc((24/768)*Screen.Height);
+Form1.Hsc.Font.Size:=trunc(15/768*Screen.Height);
+//set Sc
+Form1.sc.Left:=Trunc((8/1366)*Screen.Width);
+Form1.sc.Top:=Trunc((64/768)*Screen.Height);
+Form1.sc.Width:=Trunc((101/1366)*Screen.Width);
+Form1.sc.Height:=Trunc((24/768)*Screen.Height);
+Form1.sc.Font.Size:=trunc(15/768*Screen.Height);
+//set shyp3
+Form1.shyp3.Left:=Trunc(248/1366*Screen.Width);
+Form1.shyp3.Top:=Trunc(597/768*Screen.Height);
+Form1.shyp3.Height:=Trunc(50/768*Screen.Height);
+Form1.shyp3.Width:=Trunc(51/1366*Screen.Width);
+
 end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -535,23 +579,35 @@ Form1.Sprite3.Left:=Trunc((96/1366)*Screen.Width);
 Form1.Sprite3.Top:=Trunc((440/768)*Screen.Height);
 Form1.Sprite3.Height:=Trunc((193/768)*Screen.Height);
 Form1.Sprite3.Width:=Trunc((137/1366)*Screen.Width);
+Form1.attempt.Caption:='Attempt:'+Inttostr(sproba);
+
 low:=Trunc((440/768)*Screen.Height);
 high:=Trunc((315/768)*Screen.Height);
 
 leveltime:=0;
 pausestan:=0;
-Form1.shyp1.Picture.LoadFromFile('wintershyp.jpg');
 hide_all();
 Form1.Color:=clWhite;
 Form1.Timer1.Enabled:=true;
 Form1.Timer3.Enabled:=True;
 Form1.Timer2.Enabled:=False;
 Form1.Ruxshiptime.Enabled:=False;
+Form1.Ruxshyp2.Enabled:=False;
+Form1.Ruxshyp3.Enabled:=False;
+Form1.Ruxshiptime.Interval:=25;
+Form1.Ruxshyp2.Interval:=25;
+Form1.Ruxshyp3.Interval:=25;
+Form1.Ruxshyp3.Interval:=25;
 Form1.Sprite1.Show;
 Form1.Sprite2.Show;
 Form1.Sprite3.Show;
 Form1.fon.Show;
+Form1.attempt.Show;
 Form1.pause.Show;
+flagruh1:=false;
+Flagruh2:=false;
+Flagruh3:=false;
+posofspr:=1;
 end;
 procedure instruction();
 begin
@@ -562,7 +618,7 @@ Form1.Start.Show;
 end;
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-posofspr:=1;
+if (levelnum=1) then
 instruction();
 end;
 
@@ -589,6 +645,8 @@ Timer1.Enabled:=False;
 Timer2.Enabled:=False;
 Timer3.Enabled:=False;
 Ruxshiptime.Enabled:=False;
+Ruxshyp2.Enabled:=False;
+Ruxshyp3.Enabled:=False;
 hide_all();
 Form1.Continue.Show;
 Form1.Tomenu.Show;
@@ -600,6 +658,8 @@ Form1.Timer1.Enabled:=false;
 Form1.Timer2.Enabled:=false;
 Form1.Timer3.Enabled:=False;
 Form1.Ruxshiptime.Enabled:=False;
+Form1.Ruxshyp2.Enabled:=False;
+Form1.Ruxshyp3.Enabled:=False;
 go_to_menu();
 end;
 
@@ -611,19 +671,33 @@ if (Form1.Sprite1.Top<low) then
 Form1.Timer2.Enabled:=True
 else
 Form1.Timer1.Enabled:=true;
-
+Form1.Timer3.Enabled:=true;
 Form1.Sprite1.Show;
 Form1.Sprite2.Show;
 Form1.Sprite3.Show;
 Form1.fon.Show;
 Form1.pause.Show;
-Form1.shyp1.Show;
-If (Form1.shyp1.Left>-Form1.shyp1.Width) then
+Form1.attempt.Show;
+If (flagruh1=true) then
+  begin
   Form1.Ruxshiptime.Enabled:=True;
+  Form1.shyp1.Show;
+  end;
+If (Flagruh2=true) then
+  begin
+  Form1.Ruxshyp2.Enabled:=True;
+  Form1.shyp2.Show;
+  end;
+If (Flagruh3=true) then
+  begin
+  Form1.Ruxshyp3.Enabled:=True;
+  Form1.shyp3.Show;
+  end;
 end;
 
 procedure TForm1.StartClick(Sender: TObject);
 begin
+sproba:=1;
 if (levelnum=1) then
 set_level1();
 end;
@@ -664,12 +738,33 @@ end;
 procedure TForm1.Timer3Timer(Sender: TObject);
 begin
 leveltime:=leveltime+250;
-if (leveltime=1250) then
+if ((leveltime=1250) or (leveltime=11000) or (leveltime=22500) or (leveltime=30000)) then
 begin
+flagruh1:=true;
 Ruxshiptime.Enabled:=True;
 Form1.shyp1.Left:=Screen.Width+Form1.shyp1.Width;
-Form1.shyp1.Top:=Trunc(820/1920*Screen.Width);
+Form1.shyp1.Top:=Trunc(840/1920*Screen.Width);
 Form1.shyp1.Show;
+end;
+if ((leveltime=6000) or (leveltime=13000) or (leveltime=30250)) then
+begin
+flagruh2:=true;
+Ruxshyp2.Enabled:=true;
+Form1.shyp2.Left:=Screen.Width+Form1.shyp2.Width;
+Form1.shyp2.Show;
+end;
+if ((leveltime=16000) or (leveltime=24500)) then
+begin
+flagruh3:=true;
+Ruxshyp3.Enabled:=true;
+Form1.shyp3.Left:=Screen.Width+Form1.shyp3.Width;
+Form1.shyp3.Show;
+end;
+if (leveltime=22000) then
+begin
+Form1.Ruxshiptime.Interval:=16;
+Form1.Ruxshyp2.Interval:=16;
+Form1.Ruxshyp3.Interval:=16;
 end;
 end;
 function prinalezhinst(Left,Width,Top,Height,X,Y:Integer):Boolean;
@@ -697,13 +792,49 @@ peretyn:=False;
 end;
 procedure TForm1.RuxshiptimeTimer(Sender: TObject);
 begin
-Form1.shyp1.Left:=Form1.shyp1.Left-Trunc((8/1920)*Screen.Width);
+Form1.shyp1.Left:=Form1.shyp1.Left-Trunc((10/1920)*Screen.Width);
 if (peretyn(Form1.Sprite1.Top,Form1.Sprite1.Left,Form1.Sprite1.Height,Form1.Sprite1.Width,Form1.shyp1.Top,Form1.shyp1.Left,Form1.shyp1.Height,Form1.shyp1.Width)=True) then
+begin
+sproba:=sproba+1;
 set_level1();
+end;
 if (Form1.shyp1.Left<-(Form1.shyp1.Width)) then
 begin
 Form1.shyp1.Hide;
 Form1.Ruxshiptime.Enabled:=False;
+flagruh1:=false;
 end;
 end;
+procedure TForm1.Ruxshyp2Timer(Sender: TObject);
+begin
+Form1.shyp2.Left:=Form1.shyp2.Left-Trunc((10/1920)*Screen.Width);
+if (peretyn(Form1.Sprite1.Top,Form1.Sprite1.Left,Form1.Sprite1.Height,Form1.Sprite1.Width,Form1.shyp2.Top,Form1.shyp2.Left,Form1.shyp2.Height,Form1.shyp2.Width)=True) then
+begin
+sproba:=sproba+1;
+set_level1();
+end;
+if (Form1.shyp2.Left<-(Form1.shyp2.Width)) then
+begin
+Form1.shyp2.Hide;
+Form1.Ruxshyp2.Enabled:=False;
+flagruh2:=false;
+end;
+end;
+
+procedure TForm1.Ruxshyp3Timer(Sender: TObject);
+begin
+Form1.shyp3.Left:=Form1.shyp3.Left-Trunc((10/1920)*Screen.Width);
+if (peretyn(Form1.Sprite1.Top,Form1.Sprite1.Left,Form1.Sprite1.Height,Form1.Sprite1.Width,Form1.shyp3.Top,Form1.shyp3.Left,Form1.shyp3.Height,Form1.shyp3.Width)=True) then
+begin
+sproba:=sproba+1;
+set_level1();
+end;
+if (Form1.shyp3.Left<-(Form1.shyp3.Width)) then
+begin
+Form1.shyp3.Hide;
+Form1.Ruxshyp3.Enabled:=False;
+flagruh3:=false;
+end;
+end;
+
 end.
