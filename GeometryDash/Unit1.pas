@@ -321,8 +321,8 @@ Form1.Start.Width:=Trunc((337/1366)*Screen.Width);
 //set shyp1
 Form1.shyp1.Left:=Trunc((272/1920)*Screen.Width);
 Form1.shyp1.Top:=Trunc((520/1080)*Screen.Height);
-Form1.shyp1.Height:=Trunc((113/1080)*Screen.Height);
-Form1.shyp1.Width:=Trunc((81/1920)*Screen.Width);
+Form1.shyp1.Height:=Trunc((80/1080)*Screen.Height);
+Form1.shyp1.Width:=Trunc((75/1920)*Screen.Width);
 end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -537,7 +537,7 @@ Form1.Sprite3.Height:=Trunc((193/768)*Screen.Height);
 Form1.Sprite3.Width:=Trunc((137/1366)*Screen.Width);
 low:=Trunc((440/768)*Screen.Height);
 high:=Trunc((315/768)*Screen.Height);
-//
+
 leveltime:=0;
 pausestan:=0;
 Form1.shyp1.Picture.LoadFromFile('wintershyp.jpg');
@@ -545,6 +545,8 @@ hide_all();
 Form1.Color:=clWhite;
 Form1.Timer1.Enabled:=true;
 Form1.Timer3.Enabled:=True;
+Form1.Timer2.Enabled:=False;
+Form1.Ruxshiptime.Enabled:=False;
 Form1.Sprite1.Show;
 Form1.Sprite2.Show;
 Form1.Sprite3.Show;
@@ -585,6 +587,8 @@ procedure TForm1.pauseClick(Sender: TObject);
 begin
 Timer1.Enabled:=False;
 Timer2.Enabled:=False;
+Timer3.Enabled:=False;
+Ruxshiptime.Enabled:=False;
 hide_all();
 Form1.Continue.Show;
 Form1.Tomenu.Show;
@@ -613,6 +617,9 @@ Form1.Sprite2.Show;
 Form1.Sprite3.Show;
 Form1.fon.Show;
 Form1.pause.Show;
+Form1.shyp1.Show;
+If (Form1.shyp1.Left>-Form1.shyp1.Width) then
+  Form1.Ruxshiptime.Enabled:=True;
 end;
 
 procedure TForm1.StartClick(Sender: TObject);
@@ -661,13 +668,38 @@ if (leveltime=1250) then
 begin
 Ruxshiptime.Enabled:=True;
 Form1.shyp1.Left:=Screen.Width+Form1.shyp1.Width;
-Form1.shyp1.Top:=Trunc(792/1920*Screen.Width);
+Form1.shyp1.Top:=Trunc(820/1920*Screen.Width);
 Form1.shyp1.Show;
 end;
+end;
+function prinalezhinst(Left,Width,Top,Height,X,Y:Integer):Boolean;
+begin
+if ((Left<X) and (X<Left+Width) and (Top<Y) and (Y<Top+Height)) then
+ prinalezhinst:=True
+else
+prinalezhinst:=false;
+end;
+function peretyn (top1,left1,height1,width1,top2,left2,height2,width2:integer):Boolean;
+begin
+if (prinalezhinst(left1,width1,top1,height1,left2,top2)) then
+peretyn:=True
+else
+if (prinalezhinst(left1,width1,top1,height1,left2+width2,top2)) then
+peretyn:=True
+else
+if (prinalezhinst(left1,width1,top1,height1,left2+width2,top2+height2)) then
+peretyn:=True
+else
+if (prinalezhinst(left1,width1,top1,height1,left2,top2+height2)) then
+peretyn:=True
+else
+peretyn:=False;
 end;
 procedure TForm1.RuxshiptimeTimer(Sender: TObject);
 begin
 Form1.shyp1.Left:=Form1.shyp1.Left-Trunc((8/1920)*Screen.Width);
+if (peretyn(Form1.Sprite1.Top,Form1.Sprite1.Left,Form1.Sprite1.Height,Form1.Sprite1.Width,Form1.shyp1.Top,Form1.shyp1.Left,Form1.shyp1.Height,Form1.shyp1.Width)=True) then
+set_level1();
 if (Form1.shyp1.Left<-(Form1.shyp1.Width)) then
 begin
 Form1.shyp1.Hide;

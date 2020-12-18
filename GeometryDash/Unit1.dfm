@@ -7,6 +7,7 @@ object Form1: TForm1
   ClientHeight = 642
   ClientWidth = 1044
   Color = clHighlight
+  TransparentColorValue = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -1703,6 +1704,7 @@ object Form1: TForm1
       4DB77E4F93FC6133BFDF19E95A32A391F232A9FF0069777F51451400FA28A280
       0A28A2803FFFD9}
     Stretch = True
+    Transparent = True
   end
   object Sprite2: TImage
     Left = 96
@@ -2143,6 +2145,7 @@ object Form1: TForm1
       851E266F9DE2F33ABED716EEFC95911C31C8A7E7646F4DABB71FA9A24F3372ED
       5465EF96C7F4352515A1E480A28A2803FFD9}
     Stretch = True
+    Transparent = True
   end
   object Sprite3: TImage
     Left = 96
@@ -2560,6 +2563,7 @@ object Form1: TForm1
       9B5B0EA69F947E94514014E075D5ECE3661222B32C8024ACA41570472B8C8C8E
       4742320E4122AF5145007FFFD9}
     Stretch = True
+    Transparent = True
   end
   object fon: TImage
     Left = -8
@@ -5824,6 +5828,8 @@ object Form1: TForm1
     Top = 728
     Width = 81
     Height = 113
+    Stretch = True
+    Transparent = True
   end
   object BitBtn1: TBitBtn
     Left = 1592
