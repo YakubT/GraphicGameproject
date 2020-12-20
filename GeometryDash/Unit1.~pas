@@ -872,6 +872,12 @@ if (peretyn(Form1.Sprite1.Top,Form1.Sprite1.Left,Form1.Sprite1.Height,Form1.Spri
 begin
 sproba:=sproba+1;
 hide_all();
+Form1.Timer1.Enabled:=False;
+Form1.Timer2.Enabled:=False;
+Form1.Timer3.Enabled:=False;
+Form1.Ruxshiptime.Enabled:=False;
+Form1.Ruxshyp2.Enabled:=False;
+Form1.Ruxshyp3.Enabled:=False;
 Delay(1000);
 set_level1();
 end;
@@ -889,6 +895,12 @@ if (peretyn(Form1.Sprite1.Top,Form1.Sprite1.Left,Form1.Sprite1.Height,Form1.Spri
 begin
 sproba:=sproba+1;
 hide_all();
+Form1.Timer1.Enabled:=False;
+Form1.Timer2.Enabled:=False;
+Form1.Timer3.Enabled:=False;
+Form1.Ruxshiptime.Enabled:=False;
+Form1.Ruxshyp2.Enabled:=False;
+Form1.Ruxshyp3.Enabled:=False;
 Delay(1000);
 set_level1();
 end;
@@ -926,8 +938,8 @@ end;
 
 procedure TForm1.ZnovuClick(Sender: TObject);
 begin
-set_level1();
 sproba:=1;
+set_level1();
 end;
 
 end.

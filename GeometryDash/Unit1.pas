@@ -938,8 +938,8 @@ end;
 
 procedure TForm1.ZnovuClick(Sender: TObject);
 begin
-set_level1();
 sproba:=1;
+set_level1();
 end;
 
 end.
